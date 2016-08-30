@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Boobs</title>
+  </head>
+  <body>
+    <h1>Hello, {{user.name}}!</h1>
+    <a href="/logout">Log Out</a>
+    {% if not friends %}
+    <h3>You are a loner</h3>
+    {% else %}
+    <h3>Here is the list of your friends</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Alias</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for friend in friends %}
+        <tr>
+          <td>{{friend.alias}}</td>
+          <td><a href="/user/{{friend.id}}">View Profile</a> <a href="/remove/{{friend.id}}">Remove Friend</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    <h3>Other Users not on your friend's list</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Alias</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for friend in not_friends %}
+        <tr>
+          <td><a href="/user/{{friend.id}}">{{friend.alias}}</a></td>
+          <td>
+            <form action="/addfriend/{{friend.id}}" method="post">
+              {% csrf_token %}
+              <button type="submit">Add as Friend</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+  </body>
+</html>

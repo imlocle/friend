@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Friend</title>
+  </head>
+  <body>
+    {% if messages %}
+        <ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+        </ul>
+    {% endif %}
+    <fieldset>
+      <legend>Registration</legend>
+      <form action="/register" method="post">
+        {% csrf_token %}
+      Name: <input type="text" name="name"><br>
+      Alias: <input type="text" name="alias"><br>
+      Email: <input type="text" name="email"><br>
+      Password: <input type="text" name="password"><br>
+      Confirm PW: <input type="text" name="conpass"><br>
+      Date of Birth <input type="date" name="bday"><br>
+      <button type="submit">Register</button>
+    </form>
+    </fieldset>
+    <fieldset>
+      <legend>Login</legend>
+      <form action="/login" method="post">
+        {% csrf_token %}
+      Email: <input type="text" name="email"><br>
+      Password: <input type="text" name="password"><br>
+      <button type="submit">Login</button>
+    </form>
+    </fieldset>
+
+
+  </body>
+</html>
